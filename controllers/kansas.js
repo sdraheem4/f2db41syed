@@ -5,10 +5,17 @@ exports.kansas_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Kansas list'); 
 }; 
  
-// for a specific Kansas. 
-exports.kansas_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Kansas detail: ' + req.params.id); 
-}; 
+// for a specific Costume. 
+exports.kansas_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await Kansas.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
+};
  
 // Handle Kansas create on POST. 
 exports.kansas_create_post = function(req, res) { 
@@ -71,3 +78,24 @@ exports.kansas_create_post = async function(req, res) {
         res.send(`{"error": ${err}}`); 
     }   
 }; 
+
+// Handle Costume update form on PUT.
+exports.kansas_update_put = async function(req, res) {
+ console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+ try {
+ let toUpdate = await Kansas.findById( req.params.id)
+ // Do updates of properties
+ if(req.body.population)
+ toUpdate.population = req.body.population;
+ if(req.body.airports) toUpdate.airports = req.body.airports;
+ if(req.body.outlets) toUpdate.outlets = req.body.outlets;
+ let result = await toUpdate.save();
+ console.log("Sucess " + result)
+ res.send(result)
+ } catch (err) {
+ res.status(500)
+ res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+ }
+};
