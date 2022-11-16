@@ -14,3 +14,9 @@ var router = express.Router();
 /* GET costumes */ 
 router.get('/', kansas_controlers.kansas_view_all_Page ); 
 module.exports = router; 
+
+/* GET detail costume page */ 
+router.get('/detail', kansas_controlers.kansas_view_one_Page); 
+
+/* GET create costume page */ 
+router.get('/create', kansas_controlers.kansas_create_Page); 

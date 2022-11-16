@@ -99,3 +99,44 @@ ${JSON.stringify(req.body)}`)
 failed`);
  }
 };
+
+// Handle Costume delete on DELETE. 
+exports.kansas_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Kansas.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+}; 
+
+// Handle a show one view with id specified by query 
+exports.kansas_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Kansas.findById( req.query.id) 
+        res.render('kansasdetail',  
+{ title: 'Kansas Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle building the view for creating a costume. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.kansas_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('kansascreate', { title: 'Kansas Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
