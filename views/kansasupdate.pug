@@ -1,0 +1,45 @@
+extends layout 
+ 
+block content 
+  h1= title 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+  - let kansasid = toShow._id 
+  - let kansas_type = toShow.population 
+  - let kansascost = toShow.airports 
+  - let kansassize = toShow.outlets 
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{kansasid} 
+  - let actionid = "/resource/kansass/" + kansasid 
+  form(id='KansasForm', action= actionid, method="PUT") 
+    div.form-group 
+        label.kansasAttr(for='population') Kansas type 
+        input#kansas_type(type='number', name='population', value= kansas_type ) 
+    div.form-group 
+        label.kansasAttr(for='airports') Kansas size 
+        input#size(type='number', name='airports', value= kansascost ) 
+    div.form-group 
+        label.kansasAttr(for='outlets') Kansas cost 
+        input#cost(type='text', name='outlets', value= kansassize ) 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['KansasForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 

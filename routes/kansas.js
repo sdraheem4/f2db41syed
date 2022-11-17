@@ -20,3 +20,9 @@ router.get('/detail', kansas_controlers.kansas_view_one_Page);
 
 /* GET create costume page */ 
 router.get('/create', kansas_controlers.kansas_create_Page); 
+
+/* GET create update page */ 
+router.get('/update', kansas_controlers.kansas_update_Page); 
+
+/* GET delete costume page */ 
+router.get('/delete', kansas_controlers.kansas_delete_Page); 

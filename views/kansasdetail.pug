@@ -2,21 +2,23 @@ extends layout
  
 block content 
   h1= title 
- 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
   - let kansasid = toShow._id
   - let kansas_type = toShow.population 
   - let kansascost = toShow.airports 
   - let kansassize = toShow.outlets 
   div 
     div.row 
-      div(class='kansasAttr mr-3') Kansas ID is: 
+      div(class='kansasStyle mr-3') Kansas ID is: 
       div #{kansasid} 
     div.row 
-      div(class='kansasAttr mr-3') Kansas Type is: 
+      div(class='kansasStyle mr-3') Kansas Type is: 
       div #{kansas_type} 
     div.row 
-      div(class='kansasAttr mr-3') Kansas Size is: 
+      div(class='kansasStyle mr-3') Kansas Size is: 
       div #{kansassize} 
     div.row 
-      div(class='kansasAttr mr-3') Kansas Cost is: 
+      div(class='kansasStyle mr-3') Kansas Cost is: 
       div #{kansascost} 
