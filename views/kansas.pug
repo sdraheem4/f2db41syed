@@ -2,7 +2,19 @@ extends layout
 block content
   h1= title
   //- let results=[{population : 10000, airports : 2, outlets : "legands"},{population :2000, airports: 1, outlets : "kansas outlets"},{population :9000, airports: 4, outlets : "nike"}]
-  let items = results
+  -let items = results
+  div(class="container-fluid") 
+    div(class="row m-1") 
+      each item in items  
+        - let destination = `dispatch(\"/kansas/update?id=${item._id}\")` 
+        div(class="row-sm-2", class="m-1") Item #{item.population}(#{item.airports}) is #{item.outlets} 
+          button.btn( class="btn-primary ml-1", onclick= destination) Update 
+   
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
+
   div(class="container-fluid")
   div(class="row")
   each value,index in results
@@ -12,5 +24,7 @@ block content
     {
       alert(`Your purchased Item ${index+1}`)
     }
+
+    
 
     
